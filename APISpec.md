@@ -1,3 +1,14 @@
 # API Specifications
 
-### [GET] Fetch all the expenses
+### [GET] List categories
+* Request
+> categories?user_id=1
+
+* Response
+```json
+{
+    "categories":[
+        "ABC", "CDF"
+    ]
+}
+```
