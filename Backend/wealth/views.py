@@ -201,7 +201,7 @@ class InvestmentConfigurations(APIView):
                 goal_name = F("goal__goal_name")
             ).values(
                 "conf_id", "stock_name", "stock_code", "exchange", "market_cap", "sector",
-                "ipo", "curr_val", "locked_in", "goal_name"
+                "ipo", "curr_val", "lock_in", "goal_name"
             )
             final_response['stock_conf_data'] = stocks_conf
         return Response(final_response)
