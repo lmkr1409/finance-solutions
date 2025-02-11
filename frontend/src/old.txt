@@ -1,0 +1,80 @@
+import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { Home, Settings, CreditCard } from "lucide-react";
+
+const App = () => {
+  return (
+    <Router>
+      <div className="flex h-screen bg-gray-100">
+        <Sidebar />
+        <MainContent />
+      </div>
+    </Router>
+  );
+};
+
+const Sidebar = () => {
+  const [collapsed, setCollapsed] = useState(true);
+
+  return (
+    <div
+      className={`h-full bg-gray-900 text-white transition-all duration-300 ${
+        collapsed ? "w-16" : "w-60"
+      }`}
+      onMouseEnter={() => setCollapsed(false)}
+      onMouseLeave={() => setCollapsed(true)}
+    >
+      <nav className="p-4 space-y-4">
+        <SidebarItem
+          to="/"
+          icon={<Home size={20} />}
+          label="Dashboard"
+          collapsed={collapsed}
+        />
+        <SidebarItem
+          to="/configurations"
+          icon={<Settings size={20} />}
+          label="Configurations"
+          collapsed={collapsed}
+        />
+        <SidebarItem
+          to="/transactions"
+          icon={<CreditCard size={20} />}
+          label="Transactions"
+          collapsed={collapsed}
+        />
+      </nav>
+    </div>
+  );
+};
+
+const SidebarItem = ({ to, icon, label, collapsed }) => (
+  <Link
+    to={to}
+    className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-700"
+  >
+    {icon}
+    {!collapsed && <span>{label}</span>}
+  </Link>
+);
+
+const MainContent = () => {
+  return (
+    <div className="flex-1 p-6">
+      <Routes>
+        <Route path="/" element={<Page title="Dashboard" />} />
+        <Route
+          path="/configurations"
+          element={<Page title="Configurations" />}
+        />
+        <Route path="/transactions" element={<Page title="Transactions" />} />
+      </Routes>
+    </div>
+  );
+};
+
+const Page = ({ title }) => (
+  <div className="text-2xl font-semibold">{title}</div>
+);
+
+export default App;
